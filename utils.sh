@@ -100,8 +100,10 @@ squash_rebase() {
     NCOMMITS=$3
 
     git checkout $BRANCH
+    echo "Now keep pick in the first line, change all other to \"s\". Use any commit message."
+    read
     git rebase -i HEAD~$NCOMMITS
-    git checkout -b $BRANCH
+    git commit --amend -m "$COMMITMSG"
     git rebase main
     git checkout main
     git merge $BRANCH
