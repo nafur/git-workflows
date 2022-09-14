@@ -93,3 +93,16 @@ squash_merge() {
     git commit -m "$COMMITMSG"
     git branch -D $BRANCH-squashed
 }
+
+squash_rebase() {
+    BRANCH=$1
+    COMMITMSG=$2
+    NCOMMITS=$3
+
+    git checkout $BRANCH
+    git rebase -i HEAD~$NCOMMITS
+    git checkout -b $BRANCH
+    git rebase main
+    git checkout main
+    git merge $BRANCH
+}
